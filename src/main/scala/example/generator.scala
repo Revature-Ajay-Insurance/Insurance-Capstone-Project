@@ -89,7 +89,7 @@ object genData {
     }
 
     def claimCat() : String = {
-        val categoryList = List( "Dental", "Vision", "Medical", "Life")
+        val categoryList = List( "Dental", "Vision", "Medical", "Life", "Natural Disaster")
         var category = categoryList(random.nextInt(categoryList.length)).toString()
 
 
@@ -99,9 +99,11 @@ object genData {
     def reasonCC(claimCat : String) : String = {
       
       val dentalReasons = List("Teeth cleaning","Cavity", "Braces", "Dental Xrays")
-      val lifeReasons = List("Fatal Traffic Accident", "Death", "Terrorist Attack", "Fatal Heart Attack")
+      val lifeReasons = List("Fatal Traffic Accident", "Death", "Terrorist Attack", "Fatal Heart Attack", "Accidental", "Suicide")
       val visonReasons = List("New glasses","Eye exam", "New Contacts", "Lazer Eye Surgery")
       val medicalReasons = List("Health Check Up", "Broken Bone", "Flu diagnosis", "Vaccinations")
+      val naturalDisasterReasons = List("Fire", "Flood", "Hurricane", "Tornado", "Earthquake")
+
 
       if (claimCat == "Dental") {
         val dent = dentalReasons(random.nextInt(dentalReasons.length)).toString()
@@ -112,8 +114,12 @@ object genData {
         return vis
       }
       else if(claimCat == "Medical"){
-        val med = medicalReasons(random.nextInt(visonReasons.length)).toString()
+        val med = medicalReasons(random.nextInt(medicalReasons.length)).toString()
         return med
+      }
+      else if(claimCat == "Natural Disater"){
+        val nat = naturalDisasterReasons(random.nextInt(naturalDisasterReasons.length)).toString()
+        return nat
       }
       else {
         val el = lifeReasons(random.nextInt(lifeReasons.length)).toString()
