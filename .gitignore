@@ -1,6 +1,7 @@
 .vscode/**
 .metals/**
-project/**
 target/**
 .bloop/**
-
+project/.bloop/**
+project/project/**
+project/target/**
