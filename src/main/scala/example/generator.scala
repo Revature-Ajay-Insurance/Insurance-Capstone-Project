@@ -11,6 +11,14 @@ import scala.util._
 import java.util.Properties
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 
+
+// Spark Session Imports
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.functions._
+import org.apache.spark.sql.Column
+import org.apache.spark.sql.types._
+import org.apache.spark.sql.{Column, Dataset, Row, SparkSession}
+
 object genData {
 
     val random = new Random()
@@ -21,8 +29,54 @@ object genData {
     val csvFile = "/home/maria_dev/insurance.csv"
  
     def main(args: Array[String]):Unit = {
-      createCSV()
+      // createCSV()
+
+      // // Create Spark Session to Stream to Kafka
+      // val spark = SparkSession.builder
+      // .appName("KafkaSource")
+      // .config("spark.master", "local[*]")
+      // .getOrCreate()
+
+      // import spark.implicits._
+      // // Set Spark logging level to ERROR.
+      // spark.sparkContext.setLogLevel("ERROR")
+
+      
+    
+  
+
+      // // Output Data to Kafka create new Key Value Pairs - Topic Insurance
+      // val resultDf = initDF.withColumn("value", 
+      //   concat_ws(",",col("customer_id"),col("customer_name"),col("customer_age"),col("agent_id"),col("agent_name"),col("claim_category"),col("amount"),col("reason"),col("agent_rating"),col("datetime"),col("country"),col("state"),col("approval"), col("reimbursement_id"), col("failure_reason"))
+      // )
+      //   // .withColumn("key", col("claim_id"))
+
+      // resultDf.selectExpr("CAST(claim_id AS STRING) AS key", "CAST(value AS STRING) AS value")
+      //   .writeStream
+      //   .format("kafka")
+      //   .option("kafka.bootstrap.servers", "localhost:9092")
+      //   .option("kafka.bootstrap.servers", "sandbox-hdp.hortonworks.com:6667")
+      //   .option("topic", "insurance")
+      //   .option("checkpointLocation", "file:///home/maria_dev/output/checkpoint/kafka_checkpoint")
+      //   .start()
+      //   .awaitTermination()
+      val numTimes = 15
+      val numberRecords = 5000
+      for (i <- 0 to 15) {
+        println(s"Running cycle # $i...")
+        val insuranceData = generateRecords().toList //- create vale = to data generated
+        // implicit val formats = DefaultFormats
+        val ms = 10000
+        println(s"Completed cycle # $i...")
+        println(s"Going to sleep for $ms milliseconds...")
+        Thread.sleep(ms)
+  
+      }
+        // How long it waits before Generating more data
+       
     }
+
+  
 
     def getFileLines(filePath: String): List[Any] = {
         val file = new File(filePath)//This is passed to the function as a paramater 
@@ -61,21 +115,21 @@ object genData {
         return date
     }
 
-    def using[A <: {def close(): Unit}, B](param: A)(f: A => B): B =
-      try { f(param) } finally { param.close() }//this function closes files after writing
+    // def using[A <: {def close(): Unit}, B](param: A)(f: A => B): B =
+    //   try { f(param) } finally { param.close() }//this function closes files after writing
 
-    def writeToFile(fileName:String, data:String) = 
-      using (new FileWriter(fileName)) 
-      {
-        fileWriter => fileWriter.write(data)//simple write function will over write the contents of a file
-      }
+    // def writeToFile(fileName:String, data:String) = 
+    //   using (new FileWriter(fileName)) 
+    //   {
+    //     fileWriter => fileWriter.write(data)//simple write function will over write the contents of a file
+    //   }
 
-    def appendToFile(fileName:String, textData:String) =
-      using (new FileWriter(fileName, true)){ 
-      fileWriter => using (new PrintWriter(fileWriter)) {
-        printWriter => printWriter.println(textData)// this is the appending funtion and will not overwrite a file
-      }
-    }
+    // // def appendToFile(fileName:String, textData:String) =
+    //   using (new FileWriter(fileName, true)){ 
+    //   fileWriter => using (new PrintWriter(fileWriter)) {
+    //     printWriter => printWriter.println(textData)// this is the appending funtion and will not overwrite a file
+    //   }
+    // }
 
     def id(): String = {
       val randID = UUID.randomUUID().toString() // gives rand uuid 
@@ -169,63 +223,128 @@ object genData {
           return noReason
         }
       }
-    def createCSV(): Unit = {
-      val insData = csvFile
-      //val feilds = "claim_id,customer_id,customer_name,Customer_age,agent_id,agent_name,claim_category,amount,reason,agent_rating,datetime,country,state,approval,reimbursement_id,failure_reason\n"
-      writeToFile(insData, "")
-      println("Creating Data")
-      for(i <- 1 until 5000) //for loop to determine how big to make data set
+    def generateRecords(numGenerate: Integer): ={
+      val props: Properties = new Properties()
+
+      props.put("bootstrap.servers", "sandbox-hdp.hortonworks.com:6667")
+      props.put(
+        "key.serializer",
+        "org.apache.kafka.common.serialization.StringSerializer"
+      )
+      props.put(
+        "value.serializer",
+        "org.apache.kafka.common.serialization.StringSerializer"
+      )
+      // The acks config controls the criteria under which requests are considered complete.
+      // The "all" setting we have specified will result in blocking on the full commit of the record,
+      // the slowest but most durable setting.
+      props.put("acks", "all")
+      val producer = new KafkaProducer[String, String](props)
+      val topic = "insurance"
+     try {
+       for(i <- 1 until numGenerate) //for loop to determine how big to make data set
       {
         val claim = claimCat() //claim paramater to pass to reasonCC/falure reason
         val approvalIs = approval()//aapproval paramater to pass to falure reason
         println(s"Creating Data: ${i + 1}") // prints the count of as data is being created
+<<<<<<< Updated upstream
         val data = id() + "," + id() + "," + names() + "," + age() + "," + agentNameId() + "," + claim + "," + amount() + "," + reasonCC(claim) + ","  + agentRating() + "," + date() + "," + country + "," + state() + "," + approvalIs + "," + id() + "," + failureReason(claim,approvalIs) 
         appendToFile(insData, data)
       }
+=======
+        val data = id(), id(), names(), age(), agentNameId(), claim, amount(), reasonCC(claim, randstate), agentRating(), date(), country, state(), approvalIs, id(), failureReason(claim,approvalIs) 
+>>>>>>> Stashed changes
       }
-}
-
-object KafkaProducerApp {
-  def main_kp(args: Array[String]): Unit = {
-    val props: Properties = new Properties()
-    //props.put("bootstrap.servers","localhost:9092")
-    props.put("bootstrap.servers", "sandbox-hdp.hortonworks.com:6667")
-    props.put(
-      "key.serializer",
-      "org.apache.kafka.common.serialization.StringSerializer"
-    )
-    props.put(
-      "value.serializer",
-      "org.apache.kafka.common.serialization.StringSerializer"
-    )
-    // The acks config controls the criteria under which requests are considered complete.
-    // The "all" setting we have specified will result in blocking on the full commit of the record,
-    // the slowest but most durable setting.
-    props.put("acks", "all")
-    val producer = new KafkaProducer[String, String](props)
-    val topic = "text_topic"
-    try {
-      for (i <- 0 to 15) {
-        val record = new ProducerRecord[String, String](
+      val record = new ProducerRecord[String, String](
           topic,
           i.toString,
-          "This is item #" + i
+          data
         )
-        val metadata = producer.send(record)
-        printf(
-          s"sent record(key=%s value=%s) " +
-            "meta(partition=%d, offset=%d)\n",
-          record.key(),
-          record.value(),
-          metadata.get().partition(),
-          metadata.get().offset()
-        )
-      }
+      val metadata = producer.send(record)
+          printf(
+            s"sent record(key=%s value=%s) " +
+              "meta(partition=%d, offset=%d)\n",
+            record.key(),
+            record.value(),
+            metadata.get().partition(),
+            metadata.get().offset()
+          )
+      
     } catch {
       case e: Exception => e.printStackTrace()
     } finally {
       producer.close()
-    }
-  }
+        
+      //   val output = (1 to numberRecords).map { i =>
+      //     val randstate= state()
+      //     val claim = claimCat() //claim paramater to pass to reasonCC/falure reason
+      //     val approvalIs = approval()//aapproval paramater to pass to falure reason
+      //     println(s"Creating Data: ${i + 1}") // prints the count of as data is being created
+      //     val data = id() + "," + id() + "," + names() + "," + age() + "," + agentNameId() + "," + claim + "," + amount() + "," + reasonCC(claim, randstate) + ","  + agentRating() + "," + date() + "," + country + "," + state() + "," + approvalIs + "," + id() + "," + failureReason(claim,approvalIs)
+        
+      //   }
+      // output
+      }
+    // def createCSV(): Unit = {
+    //   val insData = csvFile
+    //   //val feilds = "claim_id,customer_id,customer_name,Customer_age,agent_id,agent_name,claim_category,amount,reason,agent_rating,datetime,country,state,approval,reimbursement_id,failure_reason\n"
+    //   writeToFile(insData, "")
+    //   println("Creating Data")
+    //   for(i <- 1 until 5000) //for loop to determine how big to make data set
+    //   {
+    //     val randstate= state()
+    //     val claim = claimCat() //claim paramater to pass to reasonCC/falure reason
+    //     val approvalIs = approval()//aapproval paramater to pass to falure reason
+    //     println(s"Creating Data: ${i + 1}") // prints the count of as data is being created
+    //     val data = id() + "," + id() + "," + names() + "," + age() + "," + agentNameId() + "," + claim + "," + amount() + "," + reasonCC(claim, randstate) + ","  + agentRating() + "," + date() + "," + country + "," + state() + "," + approvalIs + "," + id() + "," + failureReason(claim,approvalIs) 
+    //     appendToFile(insData, data)
+    //   }
+    //   }
+ 
 }
+
+
+// object KafkaProducerApp {
+//   def kp(args: Array[String]): Unit = {
+//     val props: Properties = new Properties()
+//     //props.put("bootstrap.servers","localhost:9092")
+//     props.put("bootstrap.servers", "sandbox-hdp.hortonworks.com:6667")
+//     props.put(
+//       "key.serializer",
+//       "org.apache.kafka.common.serialization.StringSerializer"
+//     )
+//     props.put(
+//       "value.serializer",
+//       "org.apache.kafka.common.serialization.StringSerializer"
+//     )
+//     // The acks config controls the criteria under which requests are considered complete.
+//     // The "all" setting we have specified will result in blocking on the full commit of the record,
+//     // the slowest but most durable setting.
+//     props.put("acks", "all")
+//     val producer = new KafkaProducer[String, String](props)
+//     val topic = "insurance"
+//     try {
+//       for (i <- 0 to 15) {
+//         val record = new ProducerRecord[String, String](
+//           topic,
+//           i.toString,
+//           "This is item #" + i
+//         )
+//         val metadata = producer.send(record)
+//         printf(
+//           s"sent record(key=%s value=%s) " +
+//             "meta(partition=%d, offset=%d)\n",
+//           record.key(),
+//           record.value(),
+//           metadata.get().partition(),
+//           metadata.get().offset()
+//         )
+//       }
+//     } catch {
+//       case e: Exception => e.printStackTrace()
+//     } finally {
+//       producer.close()
+//     }
+//   }
+// }
 
