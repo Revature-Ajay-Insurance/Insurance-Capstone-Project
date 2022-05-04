@@ -21,7 +21,7 @@ object genData {
     val csvFile = "/home/maria_dev/insurance.csv"
  
     def main(args: Array[String]):Unit = {
-      createCSV()
+      producer()
     }
 
     def getFileLines(filePath: String): List[Any] = {
@@ -187,12 +187,6 @@ object genData {
         return el
       }  
     }
-    //dwaynes id function
-  //   def agentid(): String = {
-  //     val agentsid = (1 to 10).toList
-  //     var iD = agentsid(random.nextInt(agentsid.length)).toString()
-  //     return iD
-  // }
 
     def agentNameId(): String = {
       val nameList = List("Michael","Christopher","Jessica","Matthew","Ashley","Jennifer","Joshua","Amanda","Daniel","David")
@@ -236,25 +230,8 @@ object genData {
           return noReason
         }
       }
-    def createCSV(): Unit = {
-      val insData = csvFile
-      //val feilds = "claim_id,customer_id,customer_name,Customer_age,agent_id,agent_name,claim_category,amount,reason,agent_rating,datetime,country,state,approval,reimbursement_id,failure_reason\n"
-      writeToFile(insData, "")
-      println("Creating Data")
-      for(i <- 1 until 5000) //for loop to determine how big to make data set
-      {
-        val randstate= state()
-        val claim = claimCat() //claim paramater to pass to reasonCC/falure reason
-        val approvalIs = approval()//aapproval paramater to pass to falure reason
-        println(s"Creating Data: ${i + 1}") // prints the count of as data is being created
-        val data = id() + "," + id() + "," + names() + "," + age() + "," + agentNameId() + "," + claim + "," + amount() + "," + reasonCC(claim, randstate) + ","  + agentRating() + "," + date() + "," + country + "," + state() + "," + approvalIs + "," + id() + "," + failureReason(claim,approvalIs) 
-        appendToFile(insData, data)
-      }
-      }
-}
-
-object KafkaProducerApp {
-  def main_kp(args: Array[String]): Unit = {
+    
+    def producer(): Unit = {
     val props: Properties = new Properties()
     //props.put("bootstrap.servers","localhost:9092")
     props.put("bootstrap.servers", "sandbox-hdp.hortonworks.com:6667")
@@ -274,10 +251,16 @@ object KafkaProducerApp {
     val topic = "text_topic"
     try {
       for (i <- 0 to 15) {
+        val randstate= state()
+        val claim = claimCat() //claim paramater to pass to reasonCC/falure reason
+        val approvalIs = approval()//aapproval paramater to pass to falure reason
+        val data = id() + "," + id() + "," + names() + "," + age() + "," + agentNameId() + "," + claim + "," + amount() + "," + 
+        reasonCC(claim, randstate) + ","  + agentRating() + "," + date() + "," + country + "," + state() + "," + approvalIs + "," + id() + 
+        "," + failureReason(claim,approvalIs)
         val record = new ProducerRecord[String, String](
           topic,
           i.toString,
-          "This is item #" + i
+          data
         )
         val metadata = producer.send(record)
         printf(
@@ -294,6 +277,20 @@ object KafkaProducerApp {
     } finally {
       producer.close()
     }
-  }
+    }
+    def createCSV(): Unit = {
+      val insData = csvFile
+      //val feilds = "claim_id,customer_id,customer_name,Customer_age,agent_id,agent_name,claim_category,amount,reason,agent_rating,datetime,country,state,approval,reimbursement_id,failure_reason\n"
+      writeToFile(insData, "")
+      println("Creating Data")
+      for(i <- 1 until 5000) //for loop to determine how big to make data set
+      {
+        val randstate= state()
+        val claim = claimCat() //claim paramater to pass to reasonCC/falure reason
+        val approvalIs = approval()//aapproval paramater to pass to falure reason
+        println(s"Creating Data: ${i + 1}") // prints the count of as data is being created
+        val data = id() + "," + id() + "," + names() + "," + age() + "," + agentNameId() + "," + claim + "," + amount() + "," + reasonCC(claim, randstate) + ","  + agentRating() + "," + date() + "," + country + "," + state() + "," + approvalIs + "," + id() + "," + failureReason(claim,approvalIs) 
+        appendToFile(insData, data)
+      }
+      }
 }
-
