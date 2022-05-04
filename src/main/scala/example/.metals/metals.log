@@ -1,0 +1,46 @@
+2022.05.03 11:55:44 INFO  tracing is disabled for protocol LSP, to enable tracing of incoming and outgoing JSON messages create an empty file at c:\Users\samve\Desktop\capstoneData\Insurance-Capstone-Project\src\main\scala\example\.metals\lsp.trace.json or C:\Users\samve\AppData\Local\scalameta\metals\cache\lsp.trace.json
+2022.05.03 11:55:44 INFO  logging to file C:\Users\samve\Desktop\capstoneData\Insurance-Capstone-Project\src\main\scala\example\.metals\metals.log
+2022.05.03 11:55:44 INFO  Started: Metals version 0.11.5 in workspace 'C:\Users\samve\Desktop\capstoneData\Insurance-Capstone-Project\src\main\scala\example' for client Visual Studio Code 1.66.2.
+2022.05.03 11:55:45 INFO  time: initialize in 0.98s
+2022.05.03 11:55:45 WARN  Flyway upgrade recommended: H2 2.1.212 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.1.210.
+2022.05.03 11:55:45 WARN  Build server is not auto-connectable.
+2022.05.03 11:55:45 WARN  no build tool detected in workspace 'C:\Users\samve\Desktop\capstoneData\Insurance-Capstone-Project\src\main\scala\example'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+2022.05.03 11:55:45 WARN  no build target for: C:\Users\samve\Desktop\capstoneData\Insurance-Capstone-Project\src\main\scala\example\generator.scala
+May 03, 2022 11:55:47 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+2022.05.03 11:55:48 INFO  no build target found for C:\Users\samve\Desktop\capstoneData\Insurance-Capstone-Project\src\main\scala\example\generator.scala. Using presentation compiler with project's scala-library version: 3.1.2
+2022.05.03 11:55:50 INFO  time: code lens generation in 3.31s
+2022.05.03 11:59:17 INFO  shutting down Metals
+2022.05.03 11:59:27 INFO  tracing is disabled for protocol LSP, to enable tracing of incoming and outgoing JSON messages create an empty file at c:\Users\samve\Desktop\capstoneData\Insurance-Capstone-Project\src\main\scala\example\.metals\lsp.trace.json or C:\Users\samve\AppData\Local\scalameta\metals\cache\lsp.trace.json
+2022.05.03 11:59:28 INFO  logging to file C:\Users\samve\Desktop\capstoneData\Insurance-Capstone-Project\src\main\scala\example\.metals\metals.log
+2022.05.03 11:59:28 INFO  Started: Metals version 0.11.5 in workspace 'C:\Users\samve\Desktop\capstoneData\Insurance-Capstone-Project\src\main\scala\example' for client Visual Studio Code 1.66.2.
+2022.05.03 11:59:29 INFO  time: initialize in 0.99s
+2022.05.03 11:59:29 WARN  Flyway upgrade recommended: H2 2.1.212 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.1.210.
+2022.05.03 11:59:29 WARN  Build server is not auto-connectable.
+2022.05.03 11:59:29 WARN  no build tool detected in workspace 'C:\Users\samve\Desktop\capstoneData\Insurance-Capstone-Project\src\main\scala\example'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+2022.05.03 11:59:32 INFO  shutting down Metals
+2022.05.03 11:59:43 INFO  tracing is disabled for protocol LSP, to enable tracing of incoming and outgoing JSON messages create an empty file at c:\Users\samve\Desktop\capstoneData\Insurance-Capstone-Project\src\main\scala\example\.metals\lsp.trace.json or C:\Users\samve\AppData\Local\scalameta\metals\cache\lsp.trace.json
+2022.05.03 11:59:44 INFO  logging to file C:\Users\samve\Desktop\capstoneData\Insurance-Capstone-Project\src\main\scala\example\.metals\metals.log
+2022.05.03 11:59:44 INFO  Started: Metals version 0.11.5 in workspace 'C:\Users\samve\Desktop\capstoneData\Insurance-Capstone-Project\src\main\scala\example' for client Visual Studio Code 1.66.2.
+2022.05.03 11:59:45 INFO  time: initialize in 0.89s
+2022.05.03 11:59:45 WARN  Flyway upgrade recommended: H2 2.1.212 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.1.210.
+2022.05.03 11:59:45 WARN  Build server is not auto-connectable.
+2022.05.03 11:59:45 WARN  no build tool detected in workspace 'C:\Users\samve\Desktop\capstoneData\Insurance-Capstone-Project\src\main\scala\example'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+2022.05.03 11:59:46 WARN  no build target for: C:\Users\samve\Desktop\capstoneData\Insurance-Capstone-Project\src\main\scala\example\generator.scala
+2022.05.03 11:59:47 INFO  no build target found for C:\Users\samve\Desktop\capstoneData\Insurance-Capstone-Project\src\main\scala\example\generator.scala. Using presentation compiler with project's scala-library version: 3.1.2
+2022.05.03 11:59:49 INFO  time: code lens generation in 3.1s
+May 03, 2022 12:00:42 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+2022.05.03 12:00:47 WARN  no build target for: C:\Users\samve\Desktop\capstoneData\Insurance-Capstone-Project\src\main\scala\example\generator.scala
+2022.05.03 12:03:56 INFO  shutting down Metals
+2022.05.03 12:04:06 INFO  tracing is disabled for protocol LSP, to enable tracing of incoming and outgoing JSON messages create an empty file at c:\Users\samve\Desktop\capstoneData\Insurance-Capstone-Project\src\main\scala\example\.metals\lsp.trace.json or C:\Users\samve\AppData\Local\scalameta\metals\cache\lsp.trace.json
+2022.05.03 12:04:07 INFO  logging to file C:\Users\samve\Desktop\capstoneData\Insurance-Capstone-Project\src\main\scala\example\.metals\metals.log
+2022.05.03 12:04:07 INFO  Started: Metals version 0.11.5 in workspace 'C:\Users\samve\Desktop\capstoneData\Insurance-Capstone-Project\src\main\scala\example' for client Visual Studio Code 1.66.2.
+2022.05.03 12:04:08 INFO  time: initialize in 0.94s
+2022.05.03 12:04:08 WARN  Flyway upgrade recommended: H2 2.1.212 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.1.210.
+2022.05.03 12:04:08 WARN  Build server is not auto-connectable.
+2022.05.03 12:04:08 WARN  no build tool detected in workspace 'C:\Users\samve\Desktop\capstoneData\Insurance-Capstone-Project\src\main\scala\example'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+2022.05.03 12:04:08 WARN  no build target for: C:\Users\samve\Desktop\capstoneData\Insurance-Capstone-Project\src\main\scala\example\generator.scala
+2022.05.03 12:04:10 INFO  no build target found for C:\Users\samve\Desktop\capstoneData\Insurance-Capstone-Project\src\main\scala\example\generator.scala. Using presentation compiler with project's scala-library version: 3.1.2
+2022.05.03 12:04:12 INFO  time: code lens generation in 3.86s
+2022.05.03 12:04:30 INFO  shutting down Metals
