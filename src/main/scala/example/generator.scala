@@ -21,7 +21,7 @@ object genData {
     val csvFile = "/home/maria_dev/insurance.csv"
  
     def main(args: Array[String]):Unit = {
-      producer()
+      producer(5000)
     }
 
     def getFileLines(filePath: String): List[Any] = {
@@ -230,8 +230,9 @@ object genData {
           return noReason
         }
       }
-    
-    def producer(): Unit = {
+
+    //$KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic text_topic
+    def producer(numGenerate: Integer): Unit = {
     val props: Properties = new Properties()
     //props.put("bootstrap.servers","localhost:9092")
     props.put("bootstrap.servers", "sandbox-hdp.hortonworks.com:6667")
@@ -248,9 +249,9 @@ object genData {
     // the slowest but most durable setting.
     props.put("acks", "all")
     val producer = new KafkaProducer[String, String](props)
-    val topic = "text_topic"
+    val topic = "insurance"
     try {
-      for (i <- 0 to 15) {
+      for (i <- 0 to numGenerate) {
         val randstate= state()
         val claim = claimCat() //claim paramater to pass to reasonCC/falure reason
         val approvalIs = approval()//aapproval paramater to pass to falure reason
