@@ -21,7 +21,19 @@ object genData {
     val csvFile = "/home/maria_dev/insurance.csv"
  
     def main(args: Array[String]):Unit = {
-      createCSV()
+      // How many times to run the loop
+      val numTimes = 15
+      // How many records to generate
+      val numRecords = 5000
+      for(i <- 0 to numTimes)
+      {
+        println(s"Running cycle # ${i + 1}")
+        producer(numRecords)
+        val ms = 10000
+        println(s"Completed cycle # ${i + 1}")
+        println(s"Going to sleep for $ms milliseconds...")
+        Thread.sleep(ms)
+      }     
     }
 
     def getFileLines(filePath: String): List[Any] = {
@@ -98,16 +110,48 @@ object genData {
 
     def reasonCC(claimCat : String, state: String) : String = {
       
-      val dentalReasons = List("Teeth cleaning","Cavity", "Braces", "Dental Xrays")
-      val lifeReasons = List("Fatal Traffic Accident", "Death", "Terrorist Attack", "Fatal Heart Attack", "Accidental", "Suicide")
+      val dentalReasons = List("Teeth Cleaning","Cavity", "Braces", "Dental Xrays")
+      val lifeReasons = List("Fatal Traffic Accident", "Death", "Terrorist Attack", "Heart Disease", "Accidental", "Suicide", "Alzheimer's Disease", "Stroke", "Cancer")
       val visonReasons = List("New glasses","Eye exam", "New Contacts", "Lazer Eye Surgery")
       val medicalReasons = List("Health Check Up", "Broken Bone", "Flu diagnosis", "Vaccinations")
-      val naturalDisasterReasons = List("Fire", "Flood", "Hurricane", "Tornado", "Earthquake")
+      val naturalDisasterReasons = List("Wildfire", "Flood", "Hurricane", "Tornado", "Earthquake", "Sinkholes")
 
 
       if (claimCat == "Dental") {
-        val dent = dentalReasons(random.nextInt(dentalReasons.length)).toString()
-        return dent
+        if(state == "Minnesota" || state == "Hawaii" || state == "Iowa" || state == "Nebraska" || state == "Virgina"){
+          val teethCleaning = "Teeth Cleaning"
+          return teethCleaning
+        }
+        else{
+          val dent = dentalReasons(random.nextInt(dentalReasons.length)).toString()
+          return dent
+        }
+      }
+      else if(claimCat == "Life") {
+        if(state == "California" || state == "Texas" || state == "Florida"){
+          val alzheimer = "Alzheimer's Disease"
+          return alzheimer
+        }
+        else if(state == "Florida" || state == "California" || state == "Illinois" || state == "Michigan" || state == "North Carolina"){
+          val stroke = "Stroke"
+          return stroke
+        }
+        else if(state == "Texas" || state == "New York" || state == "North Carolina" || state == "Ohio" || state == "Virginia"){
+          val cancer = "Cancer"
+          return cancer
+        }
+        else if(state == "Pennsylvania" || state == "Florida" || state == "Ohio" || state == "Michigan" || state == "Arizona"){
+          val suicide = "Suicide"
+          return suicide
+        }
+        else if(state == "New York" || state == "Tennessee" || state == "New Jersey"){
+          val heartDisease = "Heart Disease"
+          return heartDisease
+        }
+        else{
+          val nat = lifeReasons(random.nextInt(lifeReasons.length)).toString()
+          return nat
+        }
       }
       else if(claimCat == "Vision"){
         val vis = visonReasons(random.nextInt(visonReasons.length)).toString()
@@ -118,9 +162,31 @@ object genData {
         return med
       }
       else if(claimCat == "Natural Disater"){
-        if(state == "Flordia"){
+        // Top 5 states with Hurricanes
+        if(state == "Florida" || state == "Louisiana" || state == "Texas" || state == "Georgia" || state == "South Carolina"){
+
           val hurricane = "Hurricane"
           return hurricane
+        }
+        // Top 3 States with Wildfires
+        else if(state == "California" || state == "Texas" || state == "North Carolina"){
+          val wildfire = "Wildfire"
+          return wildfire
+        }
+        // Tornado Alley
+        else if(state == "Texas" || state == "Iowa" || state == "Kansas" || state == "Nebraska" || state == "Ohio"){
+          val tornado = "Tornado"
+          return tornado
+        }
+        // Top 3 States with Floods
+        else if(state == "Florida" || state == "Louisiana" || state == "Texas"){
+          val flood = "Flood"
+          return flood
+        }
+        // Top 5 States with Earthquakes
+        else if(state == "Alaska" || state == "Oklahoma" || state == "California" || state == "Nevada" || state == "Wyoming"){
+          val earthquake = "Earthquake"
+          return earthquake
         }
         else{
           val nat = naturalDisasterReasons(random.nextInt(naturalDisasterReasons.length)).toString()
@@ -133,12 +199,6 @@ object genData {
         return el
       }  
     }
-    //dwaynes id function
-  //   def agentid(): String = {
-  //     val agentsid = (1 to 10).toList
-  //     var iD = agentsid(random.nextInt(agentsid.length)).toString()
-  //     return iD
-  // }
 
     def agentNameId(): String = {
       val nameList = List("Michael","Christopher","Jessica","Matthew","Ashley","Jennifer","Joshua","Amanda","Daniel","David")
@@ -182,25 +242,9 @@ object genData {
           return noReason
         }
       }
-    def createCSV(): Unit = {
-      val insData = csvFile
-      //val feilds = "claim_id,customer_id,customer_name,Customer_age,agent_id,agent_name,claim_category,amount,reason,agent_rating,datetime,country,state,approval,reimbursement_id,failure_reason\n"
-      writeToFile(insData, "")
-      println("Creating Data")
-      for(i <- 1 until 5000) //for loop to determine how big to make data set
-      {
-        val randstate= state()
-        val claim = claimCat() //claim paramater to pass to reasonCC/falure reason
-        val approvalIs = approval()//aapproval paramater to pass to falure reason
-        println(s"Creating Data: ${i + 1}") // prints the count of as data is being created
-        val data = id() + "," + id() + "," + names() + "," + age() + "," + agentNameId() + "," + claim + "," + amount() + "," + reasonCC(claim, randstate) + ","  + agentRating() + "," + date() + "," + country + "," + state() + "," + approvalIs + "," + id() + "," + failureReason(claim,approvalIs) 
-        appendToFile(insData, data)
-      }
-      }
-}
 
-object KafkaProducerApp {
-  def main_kp(args: Array[String]): Unit = {
+    //$KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic text_topic
+    def producer(numGenerate: Integer): Unit = {
     val props: Properties = new Properties()
     //props.put("bootstrap.servers","localhost:9092")
     props.put("bootstrap.servers", "sandbox-hdp.hortonworks.com:6667")
@@ -217,13 +261,19 @@ object KafkaProducerApp {
     // the slowest but most durable setting.
     props.put("acks", "all")
     val producer = new KafkaProducer[String, String](props)
-    val topic = "text_topic"
+    val topic = "insurance"
     try {
-      for (i <- 0 to 15) {
+      for (i <- 0 to numGenerate) {
+        val randstate= state()
+        val claim = claimCat() //claim paramater to pass to reasonCC/falure reason
+        val approvalIs = approval()//aapproval paramater to pass to falure reason
+        val data = id() + "," + id() + "," + names() + "," + age() + "," + agentNameId() + "," + claim + "," + amount() + "," + 
+        reasonCC(claim, randstate) + ","  + agentRating() + "," + date() + "," + country + "," + state() + "," + approvalIs + "," + id() + 
+        "," + failureReason(claim,approvalIs)
         val record = new ProducerRecord[String, String](
           topic,
           i.toString,
-          "This is item #" + i
+          data
         )
         val metadata = producer.send(record)
         printf(
@@ -240,6 +290,20 @@ object KafkaProducerApp {
     } finally {
       producer.close()
     }
-  }
+    }
+    def createCSV(): Unit = {
+      val insData = csvFile
+      //val feilds = "claim_id,customer_id,customer_name,Customer_age,agent_id,agent_name,claim_category,amount,reason,agent_rating,datetime,country,state,approval,reimbursement_id,failure_reason\n"
+      writeToFile(insData, "")
+      println("Creating Data")
+      for(i <- 1 until 5000) //for loop to determine how big to make data set
+      {
+        val randstate= state()
+        val claim = claimCat() //claim paramater to pass to reasonCC/falure reason
+        val approvalIs = approval()//aapproval paramater to pass to falure reason
+        println(s"Creating Data: ${i + 1}") // prints the count of as data is being created
+        val data = id() + "," + id() + "," + names() + "," + age() + "," + agentNameId() + "," + claim + "," + amount() + "," + reasonCC(claim, randstate) + ","  + agentRating() + "," + date() + "," + country + "," + state() + "," + approvalIs + "," + id() + "," + failureReason(claim,approvalIs) 
+        appendToFile(insData, data)
+      }
+      }
 }
-
