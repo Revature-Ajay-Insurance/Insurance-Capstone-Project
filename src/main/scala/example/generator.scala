@@ -64,7 +64,6 @@ object genData {
       val numberRecords = 5000
       for (i <- 0 to 15) {
         println(s"Running cycle # $i...")
-        val insuranceData = generateRecords().toList //- create vale = to data generated
         // implicit val formats = DefaultFormats
         val ms = 10000
         println(s"Completed cycle # $i...")
@@ -150,7 +149,7 @@ object genData {
         return category
     }
 
-    def reasonCC(claimCat : String) : String = {
+    def reasonCC(claimCat : String, state: String) : String = {
       
       val dentalReasons = List("Teeth cleaning","Cavity", "Braces", "Dental Xrays")
       val lifeReasons = List("Fatal Traffic Accident", "Death", "Terrorist Attack", "Fatal Heart Attack")
@@ -223,7 +222,7 @@ object genData {
           return noReason
         }
       }
-    def generateRecords(numGenerate: Integer): ={
+    def generateRecords(numGenerate: Integer): Unit ={
       val props: Properties = new Properties()
 
       props.put("bootstrap.servers", "sandbox-hdp.hortonworks.com:6667")
@@ -241,26 +240,22 @@ object genData {
       props.put("acks", "all")
       val producer = new KafkaProducer[String, String](props)
       val topic = "insurance"
-     try {
+      try {
        for(i <- 1 until numGenerate) //for loop to determine how big to make data set
       {
+        val randstate= state()
         val claim = claimCat() //claim paramater to pass to reasonCC/falure reason
         val approvalIs = approval()//aapproval paramater to pass to falure reason
         println(s"Creating Data: ${i + 1}") // prints the count of as data is being created
-<<<<<<< Updated upstream
-        val data = id() + "," + id() + "," + names() + "," + age() + "," + agentNameId() + "," + claim + "," + amount() + "," + reasonCC(claim) + ","  + agentRating() + "," + date() + "," + country + "," + state() + "," + approvalIs + "," + id() + "," + failureReason(claim,approvalIs) 
-        appendToFile(insData, data)
-      }
-=======
-        val data = id(), id(), names(), age(), agentNameId(), claim, amount(), reasonCC(claim, randstate), agentRating(), date(), country, state(), approvalIs, id(), failureReason(claim,approvalIs) 
->>>>>>> Stashed changes
-      }
-      val record = new ProducerRecord[String, String](
+        val data = id() + "," + id() + "," + names() + "," + age() + "," + agentNameId() + "," + claim + "," + amount() + "," + 
+        reasonCC(claim, randstate) + ","  + agentRating() + "," + date() + "," + country + "," + state() + "," + approvalIs + "," + id() + 
+        "," + failureReason(claim,approvalIs) 
+        val record = new ProducerRecord[String, String](
           topic,
           i.toString,
           data
         )
-      val metadata = producer.send(record)
+        val metadata = producer.send(record)
           printf(
             s"sent record(key=%s value=%s) " +
               "meta(partition=%d, offset=%d)\n",
@@ -269,6 +264,7 @@ object genData {
             metadata.get().partition(),
             metadata.get().offset()
           )
+      }
       
     } catch {
       case e: Exception => e.printStackTrace()
@@ -347,4 +343,4 @@ object genData {
 //     }
 //   }
 // }
-
+}
