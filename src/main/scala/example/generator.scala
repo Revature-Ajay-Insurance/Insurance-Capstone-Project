@@ -98,7 +98,7 @@ object genData {
 
     def reasonCC(claimCat : String, state: String) : String = {
       
-      val dentalReasons = List("Teeth cleaning","Cavity", "Braces", "Dental Xrays")
+      val dentalReasons = List("Teeth Cleaning","Cavity", "Braces", "Dental Xrays")
       val lifeReasons = List("Fatal Traffic Accident", "Death", "Terrorist Attack", "Heart Disease", "Accidental", "Suicide", "Alzheimer's Disease", "Stroke", "Cancer")
       val visonReasons = List("New glasses","Eye exam", "New Contacts", "Lazer Eye Surgery")
       val medicalReasons = List("Health Check Up", "Broken Bone", "Flu diagnosis", "Vaccinations")
@@ -106,8 +106,14 @@ object genData {
 
 
       if (claimCat == "Dental") {
-        val dent = dentalReasons(random.nextInt(dentalReasons.length)).toString()
-        return dent
+        if(state == "Minnesota" || state == "Hawaii" || state == "Iowa" || state == "Nebraska" || state == "Virgina"){
+          val teethCleaning = "Teeth Cleaning"
+          return teethCleaning
+        }
+        else{
+          val dent = dentalReasons(random.nextInt(dentalReasons.length)).toString()
+          return dent
+        }
       }
       else if(claimCat == "Life") {
         if(state == "California" || state == "Texas" || state == "Florida"){
