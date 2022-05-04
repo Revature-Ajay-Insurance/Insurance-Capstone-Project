@@ -96,7 +96,7 @@ object genData {
         return category
     }
 
-    def reasonCC(claimCat : String) : String = {
+    def reasonCC(claimCat : String, state: String) : String = {
       
       val dentalReasons = List("Teeth cleaning","Cavity", "Braces", "Dental Xrays")
       val lifeReasons = List("Fatal Traffic Accident", "Death", "Terrorist Attack", "Fatal Heart Attack", "Accidental", "Suicide")
@@ -118,8 +118,15 @@ object genData {
         return med
       }
       else if(claimCat == "Natural Disater"){
-        val nat = naturalDisasterReasons(random.nextInt(naturalDisasterReasons.length)).toString()
-        return nat
+        if(state == "Flordia"){
+          val hurricane = "Hurricane"
+          return hurricane
+        }
+        else{
+          val nat = naturalDisasterReasons(random.nextInt(naturalDisasterReasons.length)).toString()
+          return nat
+        }
+        
       }
       else {
         val el = lifeReasons(random.nextInt(lifeReasons.length)).toString()
@@ -182,10 +189,11 @@ object genData {
       println("Creating Data")
       for(i <- 1 until 5000) //for loop to determine how big to make data set
       {
+        val randstate= state()
         val claim = claimCat() //claim paramater to pass to reasonCC/falure reason
         val approvalIs = approval()//aapproval paramater to pass to falure reason
         println(s"Creating Data: ${i + 1}") // prints the count of as data is being created
-        val data = id() + "," + id() + "," + names() + "," + age() + "," + agentNameId() + "," + claim + "," + amount() + "," + reasonCC(claim) + ","  + agentRating() + "," + date() + "," + country + "," + state() + "," + approvalIs + "," + id() + "," + failureReason(claim,approvalIs) 
+        val data = id() + "," + id() + "," + names() + "," + age() + "," + agentNameId() + "," + claim + "," + amount() + "," + reasonCC(claim, randstate) + ","  + agentRating() + "," + date() + "," + country + "," + state() + "," + approvalIs + "," + id() + "," + failureReason(claim,approvalIs) 
         appendToFile(insData, data)
       }
       }
