@@ -99,7 +99,7 @@ object genData {
     def reasonCC(claimCat : String, state: String) : String = {
       
       val dentalReasons = List("Teeth cleaning","Cavity", "Braces", "Dental Xrays")
-      val lifeReasons = List("Fatal Traffic Accident", "Death", "Terrorist Attack", "Fatal Heart Attack", "Accidental", "Suicide")
+      val lifeReasons = List("Fatal Traffic Accident", "Death", "Terrorist Attack", "Heart Disease", "Accidental", "Suicide", "Alzheimer's Disease", "Stroke", "Cancer")
       val visonReasons = List("New glasses","Eye exam", "New Contacts", "Lazer Eye Surgery")
       val medicalReasons = List("Health Check Up", "Broken Bone", "Flu diagnosis", "Vaccinations")
       val naturalDisasterReasons = List("Wildfire", "Flood", "Hurricane", "Tornado", "Earthquake", "Sinkholes")
@@ -108,6 +108,32 @@ object genData {
       if (claimCat == "Dental") {
         val dent = dentalReasons(random.nextInt(dentalReasons.length)).toString()
         return dent
+      }
+      else if(claimCat == "Life") {
+        if(state == "California" || state == "Texas" || state == "Florida"){
+          val alzheimer = "Alzheimer's Disease"
+          return alzheimer
+        }
+        else if(state == "Florida" || state == "California" || state == "Illinois" || state == "Michigan" || state == "North Carolina"){
+          val stroke = "Stroke"
+          return stroke
+        }
+        else if(state == "Texas" || state == "New York" || state == "North Carolina" || state == "Ohio" || state == "Virginia"){
+          val cancer = "Cancer"
+          return cancer
+        }
+        else if(state == "Pennsylvania" || state == "Florida" || state == "Ohio" || state == "Michigan" || state == "Arizona"){
+          val suicide = "Suicide"
+          return suicide
+        }
+        else if(state == "New York" || state == "Tennessee" || state == "New Jersey"){
+          val heartDisease = "Heart Disease"
+          return heartDisease
+        }
+        else{
+          val nat = lifeReasons(random.nextInt(lifeReasons.length)).toString()
+          return nat
+        }
       }
       else if(claimCat == "Vision"){
         val vis = visonReasons(random.nextInt(visonReasons.length)).toString()
@@ -120,6 +146,7 @@ object genData {
       else if(claimCat == "Natural Disater"){
         // Top 5 states with Hurricanes
         if(state == "Florida" || state == "Louisiana" || state == "Texas" || state == "Georgia" || state == "South Carolina"){
+
           val hurricane = "Hurricane"
           return hurricane
         }
