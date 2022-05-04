@@ -96,7 +96,7 @@ object genData {
         return category
     }
 
-    def reasonCC(claimCat : String) : String = {
+    def reasonCC(claimCat : String, state: String) : String = {
       
       val dentalReasons = List("Teeth cleaning","Cavity", "Braces", "Dental Xrays")
       val lifeReasons = List("Fatal Traffic Accident", "Death", "Terrorist Attack", "Fatal Heart Attack", "Accidental", "Suicide")
@@ -118,8 +118,15 @@ object genData {
         return med
       }
       else if(claimCat == "Natural Disater"){
-        val nat = naturalDisasterReasons(random.nextInt(naturalDisasterReasons.length)).toString()
-        return nat
+        if(state == "Flordia"){
+          val hurricane = "Hurricane"
+          return hurricane
+        }
+        else{
+          val nat = naturalDisasterReasons(random.nextInt(naturalDisasterReasons.length)).toString()
+          return nat
+        }
+        
       }
       else {
         val el = lifeReasons(random.nextInt(lifeReasons.length)).toString()
