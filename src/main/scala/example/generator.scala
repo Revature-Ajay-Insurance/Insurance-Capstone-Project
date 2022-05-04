@@ -21,7 +21,19 @@ object genData {
     val csvFile = "/home/maria_dev/insurance.csv"
  
     def main(args: Array[String]):Unit = {
-      producer(5000)
+      // How many times to run the loop
+      val numTimes = 15
+      // How many records to generate
+      val numRecords = 5000
+      for(i <- 0 to numTimes)
+      {
+        println(s"Running cycle # ${i + 1}")
+        producer(numRecords)
+        val ms = 10000
+        println(s"Completed cycle # ${i + 1}")
+        println(s"Going to sleep for $ms milliseconds...")
+        Thread.sleep(ms)
+      }     
     }
 
     def getFileLines(filePath: String): List[Any] = {

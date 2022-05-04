@@ -38,9 +38,10 @@ $KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replicatio
 Step 3:\
 to set the amount of data created change the value in the for loop in genorator.scala by passing the number you wish to create as an paramater in the producer function
 ```
-producer(15)
+val numTimes = 15
+val numRecords = 5000
 ```
-will stream 15 lines of data
+will generate 5,000 records 15 times
 
 ## To run generator.scala
 
