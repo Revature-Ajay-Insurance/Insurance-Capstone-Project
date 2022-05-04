@@ -102,7 +102,7 @@ object genData {
       val lifeReasons = List("Fatal Traffic Accident", "Death", "Terrorist Attack", "Heart Disease", "Accidental", "Suicide", "Alzheimer's Disease", "Stroke", "Cancer")
       val visonReasons = List("New glasses","Eye exam", "New Contacts", "Lazer Eye Surgery")
       val medicalReasons = List("Health Check Up", "Broken Bone", "Flu diagnosis", "Vaccinations")
-      val naturalDisasterReasons = List("Fire", "Flood", "Hurricane", "Tornado", "Earthquake")
+      val naturalDisasterReasons = List("Wildfire", "Flood", "Hurricane", "Tornado", "Earthquake", "Sinkholes")
 
 
       if (claimCat == "Dental") {
@@ -144,9 +144,31 @@ object genData {
         return med
       }
       else if(claimCat == "Natural Disater"){
-        if(state == "Florida"){
+        // Top 5 states with Hurricanes
+        if(state == "Florida" || state == "Louisiana" || state == "Texas" || state == "Georgia" || state == "South Carolina"){
+
           val hurricane = "Hurricane"
           return hurricane
+        }
+        // Top 3 States with Wildfires
+        else if(state == "California" || state == "Texas" || state == "North Carolina"){
+          val wildfire = "Wildfire"
+          return wildfire
+        }
+        // Tornado Alley
+        else if(state == "Texas" || state == "Iowa" || state == "Kansas" || state == "Nebraska" || state == "Ohio"){
+          val tornado = "Tornado"
+          return tornado
+        }
+        // Top 3 States with Floods
+        else if(state == "Florida" || state == "Louisiana" || state == "Texas"){
+          val flood = "Flood"
+          return flood
+        }
+        // Top 5 States with Earthquakes
+        else if(state == "Alaska" || state == "Oklahoma" || state == "California" || state == "Nevada" || state == "Wyoming"){
+          val earthquake = "Earthquake"
+          return earthquake
         }
         else{
           val nat = naturalDisasterReasons(random.nextInt(naturalDisasterReasons.length)).toString()
