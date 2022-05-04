@@ -40,7 +40,7 @@ to set the amount of data created change the value in the for loop in genorator.
 ```
 producer(15)
 ```
-will stream 15 lines of data\
+will stream 15 lines of data
 
 ## To run generator.scala
 
