@@ -30,48 +30,49 @@ object genData {
  
     def main(args: Array[String]):Unit = {
       // createCSV()
-
-      // // Create Spark Session to Stream to Kafka
-      // val spark = SparkSession.builder
-      // .appName("KafkaSource")
-      // .config("spark.master", "local[*]")
-      // .getOrCreate()
-
-      // import spark.implicits._
-      // // Set Spark logging level to ERROR.
-      // spark.sparkContext.setLogLevel("ERROR")
-
-      
-    
-  
-
-      // // Output Data to Kafka create new Key Value Pairs - Topic Insurance
-      // val resultDf = initDF.withColumn("value", 
-      //   concat_ws(",",col("customer_id"),col("customer_name"),col("customer_age"),col("agent_id"),col("agent_name"),col("claim_category"),col("amount"),col("reason"),col("agent_rating"),col("datetime"),col("country"),col("state"),col("approval"), col("reimbursement_id"), col("failure_reason"))
-      // )
-      //   // .withColumn("key", col("claim_id"))
-
-      // resultDf.selectExpr("CAST(claim_id AS STRING) AS key", "CAST(value AS STRING) AS value")
-      //   .writeStream
-      //   .format("kafka")
-      //   .option("kafka.bootstrap.servers", "localhost:9092")
-      //   .option("kafka.bootstrap.servers", "sandbox-hdp.hortonworks.com:6667")
-      //   .option("topic", "insurance")
-      //   .option("checkpointLocation", "file:///home/maria_dev/output/checkpoint/kafka_checkpoint")
-      //   .start()
-      //   .awaitTermination()
       val numTimes = 15
       val numberRecords = 5000
       for (i <- 0 to 15) {
         println(s"Running cycle # $i...")
         // implicit val formats = DefaultFormats
+        generateRecords(numberRecords)
         val ms = 10000
         println(s"Completed cycle # $i...")
         println(s"Going to sleep for $ms milliseconds...")
         Thread.sleep(ms)
   
       }
-        // How long it waits before Generating more data
+      // Output Data to Kafka create new Key Value Pairs - Topic Insurance
+      // Create Spark Session to Stream to Kafka
+      val spark = SparkSession.builder
+      .appName("KafkaSource")
+      .config("spark.master", "local[*]")
+      .getOrCreate()
+
+      import spark.implicits._
+      // Set Spark logging level to ERROR.
+      // spark.sparkContext.setLogLevel("ERROR")
+      val initDf = spark.readStream
+        .format("kafka")
+        .option("kafka.bootstrap.servers", "sandbox-hdp.hortonworks.com:6667")
+        .option("subscribe", "testscala")
+        .load()
+        .select(col("value").cast("string"))
+
+      val resultDf = initDf.withColumn("value", 
+        concat_ws(",",col("customer_id"),col("customer_name"),col("customer_age"),col("agent_id"),col("agent_name"),col("claim_category"),col("amount"),col("reason"),col("agent_rating"),col("datetime"),col("country"),col("state"),col("approval"), col("reimbursement_id"), col("failure_reason"))
+      )
+        // .withColumn("key", col("claim_id"))
+
+      resultDf.selectExpr("CAST(claim_id AS STRING) AS key", "CAST(value AS STRING) AS value")
+        .writeStream
+        .format("kafka")
+        .option("kafka.bootstrap.servers", "localhost:9092")
+        .option("kafka.bootstrap.servers", "sandbox-hdp.hortonworks.com:6667")
+        .option("topic", "insuranceclean")
+        .option("checkpointLocation", "file:///home/maria_dev/output/checkpoint/kafka_checkpoint")
+        .start()
+        .awaitTermination()
        
     }
 
