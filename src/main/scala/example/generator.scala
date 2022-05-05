@@ -281,7 +281,9 @@ object genData {
         val claim = claimCat() //claim paramater to pass to reasonCC/falure reason
         val approvalIs = approval()//aapproval paramater to pass to falure reason
         val data = id() + "," + id() + "," + names() + "," + age() + "," + agentNameId() + "," + claim + "," + amount() + "," + 
+
         reasonCC(claim, randstate) + ","  + agentRating(agent) + "," + date() + "," + country + "," + state() + "," + approvalIs + "," + id() + 
+
         "," + failureReason(claim,approvalIs)
         val record = new ProducerRecord[String, String](
           topic,
@@ -316,9 +318,10 @@ object genData {
         val claim = claimCat() //claim paramater to pass to reasonCC/falure reason
         val approvalIs = approval()//aapproval paramater to pass to falure reason
         println(s"Creating Data: ${i + 1}") // prints the count of as data is being created
+
         val data = id() + "," + id() + "," + names() + "," + age() + "," + agentNameId() + "," + claim + "," + amount() + "," + reasonCC(claim, randstate) + ","  + agentRating(agent) + "," + date() + "," + country + "," + state() + "," + approvalIs + "," + id() + "," + failureReason(claim,approvalIs) 
+
         appendToFile(insData, data)
       }
       }
 }
-

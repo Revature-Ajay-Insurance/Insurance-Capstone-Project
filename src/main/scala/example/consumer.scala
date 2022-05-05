@@ -1,4 +1,6 @@
+
 // spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.4 consumer.jar --class example.consumer
+
 package example
 
 import java.util.{Collections, Properties}
@@ -81,6 +83,32 @@ object consumer{
         // .withColumn("key", col("claim_id"))
         
         // Write Data transformations into a new topic
+
+    // def main(args: Array[String]):Unit = {
+    //     // Output Data to Kafka create new Key Value Pairs - Topic Insurance
+    //   // Create Spark Session to Stream to Kafka
+    //   val spark = SparkSession.builder
+    //   .appName("KafkaSource")
+    //   .config("spark.master", "local[*]")
+    //   .getOrCreate()
+
+    //   import spark.implicits._
+    //   // Set Spark logging level to ERROR.
+    //   // spark.sparkContext.setLogLevel("ERROR")
+    //   val initDf = spark.readStream
+    //     .format("kafka")
+    //     .option("kafka.bootstrap.servers", "sandbox-hdp.hortonworks.com:6667")
+    //     .option("subscribe", "insurance")
+    //     .load()
+    //     .select(col("value").cast("string"))
+
+    //     // Data Transformations/aggregations
+    //   val resultDf = initDf.withColumn("value", 
+    //     concat_ws(",",col("customer_id"),col("customer_name"),col("customer_age"),col("agent_id"),col("agent_name"),col("claim_category"),col("amount"),col("reason"),col("agent_rating"),col("datetime"),col("country"),col("state"),col("approval"), col("reimbursement_id"), col("failure_reason")))
+    //     // .withColumn("key", col("claim_id"))
+
+    //     // Write Data transformations into a new topic
+
     //   resultDf.selectExpr("CAST(claim_id AS STRING) AS key", "CAST(value AS STRING) AS value")
     //     .writeStream
     //     .format("kafka")
@@ -90,6 +118,7 @@ object consumer{
     //     .option("checkpointLocation", "file:///home/maria_dev/output/checkpoint/kafka_checkpoint")
     //     .start()
     //     .awaitTermination()
+
     }
 
     // def main(args: Array[String]):Unit = {
@@ -129,3 +158,5 @@ object consumer{
     //     }
     // }
 }
+    // }
+
