@@ -28,7 +28,7 @@ Step 1:\
 From prod2 folder copy the followoing files to your unix machine
 ```
 scp -P 2222 ./names.txt maria_dev@sandbox-hdp.hortonworks.com:/home/maria_dev
-scp -P 2222 ./states maria_dev@sandbox-hdp.hortonworks.com:/home/maria_dev
+scp -P 2222 ./states.txt maria_dev@sandbox-hdp.hortonworks.com:/home/maria_dev
 scp -P 2222 ./date.txt maria_dev@sandbox-hdp.hortonworks.com:/home/maria_dev
 ```
 Step 2(create the topic in Kafka):
