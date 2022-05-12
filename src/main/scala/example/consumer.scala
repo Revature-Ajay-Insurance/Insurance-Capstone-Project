@@ -75,9 +75,9 @@ object consumer{
         cleanDf.writeStream
             .outputMode("append") // Filesink only support Append mode.
             .format("csv") // supports these formats : csv, json, orc, parquet
-            .option("path", "file:///home/hdoop/output/synafire_output")
+            .option("path", "file:///home/hdoop/output/filesink_output")
             .option("header", false)
-            .option("checkpointLocation", "file:///home/hdoop/output/checkpoint/synafire_checkpoint")
+            .option("checkpointLocation", "file:///home/hdoop/output/checkpoint/filesink_checkpoint")
             .start()
             .awaitTermination()
         
