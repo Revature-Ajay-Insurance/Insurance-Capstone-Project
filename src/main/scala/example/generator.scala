@@ -117,12 +117,11 @@ object genData {
       val naturalDisasterReasons = List("Wildfire", "Flood", "Hurricane", "Tornado", "Earthquake", "Sinkholes")
 
 
-      if (claimCat == "Dental") {
-        if(state == "Minnesota" || state == "Hawaii" || state == "Iowa" || state == "Nebraska" || state == "Virgina"){
+      if (claimCat == "Dental" && (state == "Minnesota" || state == "Hawaii" || state == "Iowa" || state == "Nebraska" || state == "Virgina")) {
           val teethCleaning = "Teeth Cleaning"
           return teethCleaning
         }
-        else{
+      else if (claimCat == "Dental") {
           val dent = dentalReasons(random.nextInt(dentalReasons.length)).toString()
           return dent
         }
@@ -208,13 +207,13 @@ object genData {
       return idName
     }
 
-    def agentRating(idName: String): String = {
-    if(idName == "1,Michael" ||idName == "3,Jessica"){
+    def agentRating(agentNameId: String): String = {
+    if(agentNameId == "Michael" || agentNameId == "Jessica"){
       var ratingsList = (7 to 10).toList
       val ratings = ratingsList(random.nextInt(ratingsList.length)).toString() 
       return ratings
     } 
-    else if(idName == "2,Christopher" ||idName == "9,Daniel"){
+    else if(agentNameId == "Christopher" ||agentNameId == "Daniel"){
       var ratingsList = (1 to 4).toList
       val ratings = ratingsList(random.nextInt(ratingsList.length)).toString()
       return ratings
