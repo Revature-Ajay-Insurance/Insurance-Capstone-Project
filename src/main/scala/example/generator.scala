@@ -123,37 +123,6 @@ object genData {
         return dental
       }
 
-//       if (claimCat == "Dental" && (state == "Minnesota" || state == "Hawaii" || state == "Iowa" || state == "Nebraska" || state == "Virgina")) {
-//           val teethCleaning = "Teeth Cleaning"
-//           return teethCleaning
-//         }
-      // else if(claimCat == "Life") {
-      //   if(state == "California" || state == "Texas" || state == "Florida"){
-      //     val alzheimer = "Alzheimer's Disease"
-      //     return alzheimer
-      //   }
-      //   else if(state == "Florida" || state == "California" || state == "Illinois" || state == "Michigan" || state == "North Carolina"){
-      //     val stroke = "Stroke"
-      //     return stroke
-      //   }
-      //   else if(state == "Texas" || state == "New York" || state == "North Carolina" || state == "Ohio" || state == "Virginia"){
-      //     val cancer = "Cancer"
-      //     return cancer
-      //   }
-      //   else if(state == "Pennsylvania" || state == "Florida" || state == "Ohio" || state == "Michigan" || state == "Arizona"){
-      //     val suicide = "Suicide"
-      //     return suicide
-      //   }
-      //   else if(state == "New York" || state == "Tennessee" || state == "New Jersey"){
-      //     val heartDisease = "Heart Disease"
-      //     return heartDisease
-      //   }
-      //   else{
-      //     val nat = lifeReasons(random.nextInt(lifeReasons.length)).toString()
-      //     return nat
-      //   }
-      // }
-
       else if(claimCat == "Vision"){
         val vis = visonReasons(random.nextInt(visonReasons.length)).toString()
         return vis
@@ -167,96 +136,6 @@ object genData {
         return el
       }  
     }
-    // def reasonCC(claimCat : String, state: String) : String = {
-      
-    //   val dentalReasons = List("Teeth Cleaning","Cavity", "Braces", "Dental Xrays")
-    //   val lifeReasons = List("Fatal Traffic Accident", "Death", "Terrorist Attack", "Heart Disease", "Accidental", "Suicide", "Alzheimer's Disease", "Stroke", "Cancer")
-    //   val visonReasons = List("New glasses","Eye exam", "New Contacts", "Lazer Eye Surgery")
-    //   val medicalReasons = List("Health Check Up", "Broken Bone", "Flu diagnosis", "Vaccinations")
-    //   val naturalDisasterReasons = List("Wildfire", "Flood", "Hurricane", "Tornado", "Earthquake", "Sinkholes")
-
-
-    //   if (claimCat == "Dental" && state == "Hawaii" ) {
-    //       val dent2: String = ("Teeth Cleaning")
-    //       return dent2
-    //     }
-    //   else if (claimCat == "Dental"){
-    //       val dent = dentalReasons(random.nextInt(dentalReasons.length)).toString()
-    //       return dent
-    //     }
-    //   }
-    //   else if(claimCat == "Life") {
-    //     if(state == "California" || state == "Texas" || state == "Florida"){
-    //       val alzheimer = "Alzheimer's Disease"
-    //       return alzheimer
-    //     }
-    //     else if(state == "Florida" || state == "California" || state == "Illinois" || state == "Michigan" || state == "North Carolina"){
-    //       val stroke = "Stroke"
-    //       return stroke
-    //     }
-    //     else if(state == "Texas" || state == "New York" || state == "North Carolina" || state == "Ohio" || state == "Virginia"){
-    //       val cancer = "Cancer"
-    //       return cancer
-    //     }
-    //     else if(state == "Pennsylvania" || state == "Florida" || state == "Ohio" || state == "Michigan" || state == "Arizona"){
-    //       val suicide = "Suicide"
-    //       return suicide
-    //     }
-    //     else if(state == "New York" || state == "Tennessee" || state == "New Jersey"){
-    //       val heartDisease = "Heart Disease"
-    //       return heartDisease
-    //     }
-    //     else{
-    //       val nat = lifeReasons(random.nextInt(lifeReasons.length)).toString()
-    //       return nat
-    //     }
-    //   }
-    //   else if(claimCat == "Vision"){
-    //     val vis = visonReasons(random.nextInt(visonReasons.length)).toString()
-    //     return vis
-    //   }
-    //   else if(claimCat == "Medical"){
-    //     val med = medicalReasons(random.nextInt(medicalReasons.length)).toString()
-    //     return med
-    //   }
-    //   else if(claimCat == "Natural Disater"){
-    //     // Top 5 states with Hurricanes
-    //     if(state == "Florida" || state == "Louisiana" || state == "Texas" || state == "Georgia" || state == "South Carolina"){
-
-    //       val hurricane = "Hurricane"
-    //       return hurricane
-    //     }
-    //     // Top 3 States with Wildfires
-    //     else if(state == "California" || state == "Texas" || state == "North Carolina"){
-    //       val wildfire = "Wildfire"
-    //       return wildfire
-    //     }
-    //     // Tornado Alley
-    //     else if(state == "Texas" || state == "Iowa" || state == "Kansas" || state == "Nebraska" || state == "Ohio"){
-    //       val tornado = "Tornado"
-    //       return tornado
-    //     }
-    //     // Top 3 States with Floods
-    //     else if(state == "Florida" || state == "Louisiana" || state == "Texas"){
-    //       val flood = "Flood"
-    //       return flood
-    //     }
-    //     // Top 5 States with Earthquakes
-    //     else if(state == "Alaska" || state == "Oklahoma" || state == "California" || state == "Nevada" || state == "Wyoming"){
-    //       val earthquake = "Earthquake"
-    //       return earthquake
-    //     }
-    //     else{
-    //       val nat = naturalDisasterReasons(random.nextInt(naturalDisasterReasons.length)).toString()
-    //       return nat
-    //     }
-        
-    //   }
-    //   else {
-    //     val el = lifeReasons(random.nextInt(lifeReasons.length)).toString()
-    //     return el
-    //   }  
-    // }
 
     def agentNameId(): String = {
       val nameList = List("Michael","Christopher","Jessica","Matthew","Ashley","Jennifer","Joshua","Amanda","Daniel","David")
