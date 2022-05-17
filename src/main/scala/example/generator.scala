@@ -145,23 +145,11 @@ object genData {
       return idName
     }
 
-    def agentRating(agentNameId: String): String = {
-    if(agentNameId == "Michael" || agentNameId == "Jessica"){
-      var ratingsList = (7 to 10).toList
-      val ratings = ratingsList(random.nextInt(ratingsList.length)).toString() 
-      return ratings
-    } 
-    else if(agentNameId == "Christopher" ||agentNameId == "Daniel"){
-      var ratingsList = (1 to 4).toList
-      val ratings = ratingsList(random.nextInt(ratingsList.length)).toString()
-      return ratings
-    } 
-    else {
+    def agentRating(): String = {
       var ratingsList = (1 to 10).toList
       val ratings = ratingsList(random.nextInt(ratingsList.length)).toString()
       return ratings
     }
-  }
 
     def approval(): String = {
       val approvalList = List("Y", "N")
@@ -213,11 +201,10 @@ object genData {
     val topic = "insurance"
     try {
       for (i <- 0 to numGenerate) {
-        val agent = agentNameId()
         val claim = claimCat() //claim paramater to pass to reasonCC/falure reason
         val approvalIs = approval()//aapproval paramater to pass to falure reason
         val data = id() + "," + id() + "," + names() + "," + age() + "," + agentNameId() + "," + claim + "," + amount() + "," + 
-        reasonCC(claim) + ","  + agentRating(agent) + "," + date() + "," + country + "," + state() + "," + approvalIs + "," + id() + 
+        reasonCC(claim) + ","  + agentRating() + "," + date() + "," + country + "," + state() + "," + approvalIs + "," + id() + 
         "," + failureReason(claim,approvalIs)
         val record = new ProducerRecord[String, String](
           topic,
@@ -247,12 +234,11 @@ object genData {
       println("Creating Data")
       for(i <- 1 until 35000) //for loop to determine how big to make data set
       {
-        val agent = agentNameId()
         val claim = claimCat() //claim paramater to pass to reasonCC/falure reason
         val approvalIs = approval()//aapproval paramater to pass to falure reason
         println(s"Creating Data: ${i + 1}") // prints the count of as data is being created
 
-        val data = id() + "," + id() + "," + names() + "," + age() + "," + agentNameId() + "," + claim + "," + amount() + "," + reasonCC(claim) + ","  + agentRating(agent) + "," + date() + "," + country + "," + state() + "," + approvalIs + "," + id() + "," + failureReason(claim,approvalIs) 
+        val data = id() + "," + id() + "," + names() + "," + age() + "," + agentNameId() + "," + claim + "," + amount() + "," + reasonCC(claim) + ","  + agentRating() + "," + date() + "," + country + "," + state() + "," + approvalIs + "," + id() + "," + failureReason(claim,approvalIs) 
 
         appendToFile(insData, data)
       }
