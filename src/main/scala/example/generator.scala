@@ -35,7 +35,7 @@ object genData {
       //   println(s"Going to sleep for $ms milliseconds...")
       //   Thread.sleep(ms)
       // }   
-       kConsumer.kafkaCons()
+      kConsumer.kafkaCons()
     }
 
     def getFileLines(filePath: String): List[Any] = {
