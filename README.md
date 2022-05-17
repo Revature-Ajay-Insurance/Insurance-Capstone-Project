@@ -28,7 +28,7 @@ Step 1:\
 From prod2 folder copy the followoing files to your unix machine
 ```
 scp -P 2222 ./names.txt maria_dev@sandbox-hdp.hortonworks.com:/home/maria_dev
-scp -P 2222 ./states maria_dev@sandbox-hdp.hortonworks.com:/home/maria_dev
+scp -P 2222 ./states.txt maria_dev@sandbox-hdp.hortonworks.com:/home/maria_dev
 scp -P 2222 ./date.txt maria_dev@sandbox-hdp.hortonworks.com:/home/maria_dev
 ```
 Step 2(create the topic in Kafka):
@@ -36,7 +36,8 @@ Step 2(create the topic in Kafka):
 $KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 3 --topic insurance
 ```
 Step 3:\
-to set the amount of data created change the value in the for loop in genorator.scala by passing the number you wish to create as an paramater in the producer function
+to set the amount of data created change the value in the for loop in generator
+.scala by passing the number you wish to create as an paramater in the producer function
 ```
 val numTimes = 15
 val numRecords = 5000

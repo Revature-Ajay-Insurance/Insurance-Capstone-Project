@@ -146,10 +146,12 @@ object genData {
     }
 
     def agentRating(): String = {
+
       var ratingsList = (1 to 10).toList
       val ratings = ratingsList(random.nextInt(ratingsList.length)).toString()
       return ratings
     }
+  }
 
     def approval(): String = {
       val approvalList = List("Y", "N")
@@ -205,6 +207,7 @@ object genData {
         val approvalIs = approval()//aapproval paramater to pass to falure reason
         val data = id() + "," + id() + "," + names() + "," + age() + "," + agentNameId() + "," + claim + "," + amount() + "," + 
         reasonCC(claim) + ","  + agentRating() + "," + date() + "," + country + "," + state() + "," + approvalIs + "," + id() + 
+
         "," + failureReason(claim,approvalIs)
         val record = new ProducerRecord[String, String](
           topic,
@@ -239,6 +242,7 @@ object genData {
         println(s"Creating Data: ${i + 1}") // prints the count of as data is being created
 
         val data = id() + "," + id() + "," + names() + "," + age() + "," + agentNameId() + "," + claim + "," + amount() + "," + reasonCC(claim) + ","  + agentRating() + "," + date() + "," + country + "," + state() + "," + approvalIs + "," + id() + "," + failureReason(claim,approvalIs) 
+
 
         appendToFile(insData, data)
       }
