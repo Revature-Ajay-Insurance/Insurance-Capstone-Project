@@ -123,6 +123,37 @@ object genData {
         return dental
       }
 
+//       if (claimCat == "Dental" && (state == "Minnesota" || state == "Hawaii" || state == "Iowa" || state == "Nebraska" || state == "Virgina")) {
+//           val teethCleaning = "Teeth Cleaning"
+//           return teethCleaning
+//         }
+      // else if(claimCat == "Life") {
+      //   if(state == "California" || state == "Texas" || state == "Florida"){
+      //     val alzheimer = "Alzheimer's Disease"
+      //     return alzheimer
+      //   }
+      //   else if(state == "Florida" || state == "California" || state == "Illinois" || state == "Michigan" || state == "North Carolina"){
+      //     val stroke = "Stroke"
+      //     return stroke
+      //   }
+      //   else if(state == "Texas" || state == "New York" || state == "North Carolina" || state == "Ohio" || state == "Virginia"){
+      //     val cancer = "Cancer"
+      //     return cancer
+      //   }
+      //   else if(state == "Pennsylvania" || state == "Florida" || state == "Ohio" || state == "Michigan" || state == "Arizona"){
+      //     val suicide = "Suicide"
+      //     return suicide
+      //   }
+      //   else if(state == "New York" || state == "Tennessee" || state == "New Jersey"){
+      //     val heartDisease = "Heart Disease"
+      //     return heartDisease
+      //   }
+      //   else{
+      //     val nat = lifeReasons(random.nextInt(lifeReasons.length)).toString()
+      //     return nat
+      //   }
+      // }
+
       else if(claimCat == "Vision"){
         val vis = visonReasons(random.nextInt(visonReasons.length)).toString()
         return vis
@@ -235,13 +266,13 @@ object genData {
       return idName
     }
 
-    def agentRating(idName: String): String = {
-    if(idName == "1,Michael" ||idName == "3,Jessica"){
+    def agentRating(agentNameId: String): String = {
+    if(agentNameId == "Michael" || agentNameId == "Jessica"){
       var ratingsList = (7 to 10).toList
       val ratings = ratingsList(random.nextInt(ratingsList.length)).toString() 
       return ratings
     } 
-    else if(idName == "2,Christopher" ||idName == "9,Daniel"){
+    else if(agentNameId == "Christopher" ||agentNameId == "Daniel"){
       var ratingsList = (1 to 4).toList
       val ratings = ratingsList(random.nextInt(ratingsList.length)).toString()
       return ratings
