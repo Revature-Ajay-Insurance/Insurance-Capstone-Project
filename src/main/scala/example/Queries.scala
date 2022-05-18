@@ -60,6 +60,11 @@ object SparkSQL {
     val pnDF10 = spark.sql("SELECT country, count(payment_txn_id) AS TotalOrders FROM ecomm WHERE datetime BETWEEN '2022-01-01 00:00' AND '2022-12-31 23:59' GROUP BY country")
     pnDF10.show()
 
+    //      TREND
+    // number of transactions for each year for each product
+    println("List the number of distinct product_id in each year")
+    val pnDF7 = spark.sql("SELECT YEAR(datetime), count(DISTINCT product_id) AS NumOfProducts FROM ecomm GROUP BY YEAR(datetime)")
+    pnDF7.show() 
 
     // How much sales each website generates
     println("Gross sales by the 5 E-Commerce websites")
@@ -119,12 +124,7 @@ object SparkSQL {
     // number of transactions for 2020
     println("List the number of purchases for each product_id in 2020")
     val pnDF6 = spark.sql("SELECT product_name, count(product_name) AS PurchaseCount FROM ecomm WHERE YEAR(datetime) = 2020 GROUP BY product_name ORDER BY PurchaseCount DESC")
-    pnDF6.show(numRows=pnDF.count().toInt)     
-
-    // number of transactions for each year for each product
-    println("List the number of distinct product_id in each year")
-    val pnDF7 = spark.sql("SELECT YEAR(datetime), count(DISTINCT product_id) AS NumOfProducts FROM ecomm GROUP BY YEAR(datetime)")
-    pnDF7.show()    
+    pnDF6.show(numRows=pnDF.count().toInt)        
 
     // number of transactions in US in Jan 2020
     println("List the number of transactions for US cities in January 2020")
