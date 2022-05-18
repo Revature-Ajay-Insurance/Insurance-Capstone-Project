@@ -46,13 +46,13 @@ object SparkSQL {
 
     //               TREND!!! More money spent on Ecommerce every year
     println("List the average product price number in each year")
-    val pnDF = spark.sql("SELECT YEAR(datetime) as Year, sum(price) AS PriceSum FROM ecomm GROUP BY Year ORDER BY PriceSum DESC")
-    pnDF.show() 
+    val apnDF = spark.sql("SELECT YEAR(datetime) as Year, sum(price) AS PriceSum FROM ecomm GROUP BY Year ORDER BY PriceSum DESC")
+    apnDF.show() 
 
     //             TREND!!! months 10, 11, 12 sales increase by approx 36%
     println("List the sum of price for each month")
-    val pnDF = spark.sql("SELECT MONTH(datetime) as Month, sum(price) AS PriceSum FROM ecomm GROUP BY MONTH(datetime) ORDER BY PriceSum DESC")
-    pnDF.show(numRows=pnDF.count().toInt)
+    val spnDF = spark.sql("SELECT MONTH(datetime) as Month, sum(price) AS PriceSum FROM ecomm GROUP BY MONTH(datetime) ORDER BY PriceSum DESC")
+    spnDF.show(numRows=pnDF.count().toInt)
 
     //            TREND
     // number of transactions by country in 2022
@@ -68,8 +68,8 @@ object SparkSQL {
 
     // How much sales each website generates
     println("Gross sales by the 5 E-Commerce websites")
-    val profitPCDF = spark.sql("SELECT sum(price) AS TotalProfit, ecommerce_website_name FROM ecomm GROUP BY ecommerce_website_name ORDER BY TotalProfit DESC")
-    profitPCDF.show()
+    val profitwebDF = spark.sql("SELECT sum(price) AS TotalProfit, ecommerce_website_name FROM ecomm GROUP BY ecommerce_website_name ORDER BY TotalProfit DESC")
+    profitwebDF.show()
 
     // Failure Reasons by payment type
     println("List the Failure Reasons by Payment Type and their number of Transactions for each")
@@ -98,23 +98,23 @@ object SparkSQL {
 
     // The number of pet supply product each country has
     println("List Pet Supplies orders for each country")
-    val pnDF = spark.sql("SELECT country, count(product_category) AS OrderCount FROM ecomm GROUP BY country ORDER BY OrderCount DESC")
-    pnDF.show() 
+    val pspnDF = spark.sql("SELECT country, count(product_category) AS OrderCount FROM ecomm GROUP BY country ORDER BY OrderCount DESC")
+    pspnDF.show() 
 
     // The number of office products each country has
     println("List Office orders for each country")
     val pnDF2 = spark.sql("SELECT country, count(product_category) AS OrderCount FROM ecomm WHERE product_category='Office' GROUP BY country ORDER BY OrderCount DESC")
-    pnDF.show() 
+    pnDF2.show() 
 
     // The number of home decor product each country has
     println("List Home Decor orders for each country")
     val pnDF3 = spark.sql("SELECT country, count(product_category) AS OrderCount FROM ecomm WHERE product_category='Pet Supplies' GROUP BY country ORDER BY OrderCount DESC")
-    pnDF.show()
+    pnDF3.show()
 
     // The number of electronic product each country has
     println("List Electronics orders for each country")
     val pnDF4 = spark.sql("SELECT country, count(product_category) AS OrderCount FROM ecomm WHERE product_category='Electronics' GROUP BY country ORDER BY OrderCount DESC")
-    pnDF.show()
+    pnDF4.show()
 
     // Which days have the most Insufficent Funds failure reason
     println("List days of the month that has most Insufficient Funds as failure_reason")
@@ -134,12 +134,12 @@ object SparkSQL {
     // Number of transactions by country in 2020
     println("List the number of transactions for each country in 2020")
     val pnDF9 = spark.sql("SELECT country, count(payment_txn_id) AS TotalOrders FROM ecomm WHERE datetime BETWEEN '2020-01-01 00:00' AND '2020-12-31 23:59' GROUP BY country")
-    pnDF.show()
+    pnDF9.show()
     
     // number of transactions by country in 2021
     println("List the number of transactions for each country in 2021")
-    val pnDF9 = spark.sql("SELECT country, count(payment_txn_id) AS TotalOrders FROM ecomm WHERE datetime BETWEEN '2021-01-01 00:00' AND '2021-12-31 23:59' GROUP BY country")
-    pnDF2.show()
+    val tpnDF = spark.sql("SELECT country, count(payment_txn_id) AS TotalOrders FROM ecomm WHERE datetime BETWEEN '2021-01-01 00:00' AND '2021-12-31 23:59' GROUP BY country")
+    tpnDF.show()
   
    }
 }
